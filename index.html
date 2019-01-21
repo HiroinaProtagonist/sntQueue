@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>ServiceNow Service Ticket Queue</title>
+
+        <!--main stylesheet-->
+        <link rel="stylesheet" type="text/css" href="queuestyle.css"/>
+
+        <!--Must be in .gitignore file to protect auth data-->
+        <script type="text/javascript" src="info.js" ></script>
+    </head>
+    <body>
+        <div class="main">
+            <div>
+                <!--Logo and header block-->
+                <span class="header" >
+                    <img src="logo.png" height="64" alt="logo image SN Q"/>ServiceNow Service Ticket Queue</span>
+                <hr/>
+            </div>
+            
+        <!--Display list-->
+		<div id="response">
+			<table class=contentContainer>
+				<tr>
+					<td class=listHeaderL>Time</td>
+					<td class=listHeaderL>Name</td>
+					<td class=listHeaderR>Incident</td>
+				</tr>
+			</table>
+		</div>
+      </div>
+    </body>
+    
+    <script type="text/javascript">
+		//checks that a string exists, is of type string, and is not zero length
+		//Used to process bad name data caused by issues with user data in the ServiceNow users database
+		function isValidStr(givenStr){
+			if ((typeof givenStr != "undefined") && (typeof givenStr.valueOf() == "string") && (givenStr.length > 0)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		
+		//check if ticket was opened more than 30 minutes ago
+		function olderThan30(aDateStr) {
+			var addMin = require('date-fns/add_minutes');
+			
+			thisDate = new Date(aDateStr);
+			nowDate = new Date();
+			
+			datePlus30 = addMin(thisDate, 30);
+			
+			/*Diagnostic
+			console.log("DatePlus30: " + datePlus30);
+			console.log("Date: " + thisDate);
+			console.log("Now: " + nowDate);
+			*/
+			
+			if (nowDate >= datePlus30) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		
+		//Process a given date into hh:mm format
+		//update json to string representation of modified date object
+		function formatDate(givenDate) {
+			//handle potential errors here, if there are any from the ServiceNow data
+			thisDate = new Date(givenDate);
+			
+			//format date to be displayed as hh:mm
+			thisDate = thisDate.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+
+			//diagnostic
+			//console.log("Formatted time: " + thisDate);
+
+			//return processed date
+			return thisDate;
+		}
+		
+		
+		//Set up REST call, get sorted JSON object
+		function getIncidents() {
+			//REST variables
+			var requestBody = "";
+			var client=new XMLHttpRequest();
+			
+			//querystring variables
+			var svcNum;
+			var tableName;
+				
+			//Svcnum is your servicenow developer instance ID number, such as the numeric portion of dev12345.service-now.com
+			//For a production instance, remove svcNum and replace url with your ServiceNow url. Check the querystring to make sure it works with your url
+			svcNum = "12659";
+			var url = "https://dev" + svcNum +  ".service-now.com";
+			
+			//tableName will normally be the incident table
+			//Depending on your instance of ServiceNow and your tables, you will probably need to modify the querystring if you query a different table or modify the fields in your incident table
+			tableName = "incident";
+			
+			//querystring - limited to incidents opened today for a helpdesk or customer-facing tech help space
+			client.open("get",url + "/api/now/table/" + tableName + "?sysparm_query=active=true^state=1^opened_at>javascript:gs.endOfYesterday()^opened_at<javascript:gs.beginningOfTomorrow()&sysparm_display_value=false&sysparm_fields=number,sys_created_on,state,description,caller_id.first_name,caller_id.last_name&ORDERBYnumber");
+			
+			//expanded querystring - new and in progress tickets, intended for possible expansion of functionality to differentiate tickets where the customer is actively being helped from those where the customer is waiting for help
+			//client.open("get",url + "/api/now/table/" + tableName + "?sysparm_query=active=true^state=1^ORstate=2^opened_at>javascript:gs.endOfYesterday()^opened_at<javascript:gs.beginningOfTomorrow()&sysparm_display_value=false&sysparm_fields=number,sys_created_on,state,description,caller_id.first_name,caller_id.last_name&ORDERBYnumber");
+			
+			client.setRequestHeader('Accept','application/json');
+			client.setRequestHeader('Content-Type','application/json');
+
+			//login data - put your ServiceNow application account username and password in variables authU and authP in a separate file called info.js on your server/computer. If you use your application folder as a GitHub repository, make sure to list the info.js file in .gitignore for security
+			client.setRequestHeader('Authorization', 'Basic '+ btoa(authU + ':' + authP));
+
+			client.onreadystatechange = function() {
+				if(this.readyState == this.DONE) {
+					//get json object
+					var thisArray = JSON.parse(this.responseText);
+					
+					//diagnostic
+					//console.log(thisArray);
+					
+					//set response div to display the HTML generated by the makeContent function
+					document.getElementById("response").innerHTML = makeContent(thisArray.result);
+					
+				}
+			};
+
+			client.send(requestBody);
+		}
+		
+		
+		//Process xmlhttprequest data
+		//Updates first name, last name and date variables in json object
+		//This application is intended for an environment where usernames are drawn from a database. The placeholders let the application display tickets in cases where the database contains incorrect, incomplete or inaccessible user records
+		function processJSON(jsonRecord) {
+			//process name for privacy and in case of missing value in service now
+			if (isValidStr(jsonRecord["caller_id.first_name"])) {
+				//add any name string manipulation here
+			} else {
+				//insert placeholder for invalid first name
+				jsonRecord["caller_id.first_name"] = "-";
+			}
+
+			if (isValidStr(jsonRecord["caller_id.last_name"])) {
+				//truncate valid last name to first letter for privacy
+				jsonRecord["caller_id.last_name"] = jsonRecord["caller_id.last_name"].substring(0,1);
+			} else {
+				//insert placeholder for invalid last name
+				jsonRecord["caller_id.last_name"] = "-";
+			}
+			
+			//The sysparm_display_value parameter is set to false/default, so dates are delivered from ServiceNow in UTC, but need to be set to specify that they are, in fact, in UTC time.
+			jsonRecord["sys_created_on"] = jsonRecord["sys_created_on"] + " UTC";
+			
+			//debug date handling
+			//debugger;
+			
+			//check if date is older than 30 minutes and set flag if so
+			if (olderThan30(jsonRecord["sys_created_on"])) {         
+				jsonRecord["timeFlag"] = "past30";
+			}
+			
+			//modify date to hh:mm for display
+			jsonRecord["sys_created_on"] = formatDate(jsonRecord["sys_created_on"]);
+		}
+
+		
+		//Format queue data and generate html to display
+		function makeContent(dataArray) {
+			//variable to store generated html
+			//column headers are populated in html proper for a better user experience while data loads
+			var queueOut = "<table class=contentContainer><tr><td class=listHeaderL>Time</td><td class=listHeaderL>Name</td><td class=listHeaderR>Incident</td></tr>";
+			
+			//If no valid tickets, print appropriate message and end
+			if(dataArray == "undefined" || dataArray.length < 1) {
+				queueOut += "<tr><td class=listItemL colspan=3>No new tickets.</td></tr>";
+			
+			//If any valid tickets, process and display them
+			} else {
+				//set number of tickets to display
+				//display truncates after the specified number (10) or the 
+				//number of available tickets
+				var numOfTix = 10;
+				if (dataArray.length < 10) { numOfTix = dataArray.length; }
+				
+				//loop through existing tickets
+				for (var i = 0; i < numOfTix; i++) {
+					//modify json for display
+					processJSON(dataArray[i]);
+					
+					//highlight and print tickets that are over 30 min old	
+					if (dataArray[i]["timeFlag"] == "past30"){
+						queueOut += "<tr class=highlight>";
+					
+					//print tickets that are less than 30 min old without highlighting
+					}else{
+						queueOut += "<tr>";
+					}
+					
+					queueOut += "<td class=listItemL>" + dataArray[i]["sys_created_on"] + "</td><td class=listItemL>" + dataArray[i]["caller_id.first_name"] + " " + dataArray[i]["caller_id.last_name"] + "</td><td class=listItemR>" + dataArray[i]["number"] + "</td></tr>";
+					
+				}//end of for loop, end of per entry calculation
+				
+				//diagnostic
+				//console.log(dataArray);
+				
+			}//end else
+
+			//complete generated html
+			queueOut += "</table>";
+			return queueOut;
+		}//end makeContent
+		
+		//retrieve and display processed records
+		getIncidents();
+		
+		//modify refreshIntervalMilli to change refresh interval, units are milliseconds
+		var refreshIntervalMilli = 5000;
+		
+		//refresh REST call and display on set interval
+		//Comment out refresh for troubleshooting/feature development
+		var searchRecur = setInterval(function(){
+			getIncidents();
+			console.log("refreshed");
+		}, refreshIntervalMilli);   //refreshes every 5 seconds by default
+		//
+
+    </script>
+</html>

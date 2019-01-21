@@ -1,0 +1,114 @@
+
+
+/*Remove cursor from window in non-interactive usage. Also set frame to false in main.js.
+Comment out for dev and testing
+*/
+html {
+    /*cursor: none;*/
+}
+
+/*For span containing logo and title*/
+.header {
+    padding:0px;
+    margin-top:10px;
+    font-size:3.5vw;
+}
+
+/*For div containing page*/
+.main {
+    padding:10px 64px;
+}
+
+/*General styling*/
+body {
+    /*Modifies page background color*/
+    background-color: white;    /*#fffaed*/
+    
+    /*Modifies page fonts*/
+    color: black;
+    font-size: 32px;
+    font-family: arial;
+    
+    /*Adjust to change effective margins*/
+	/*Can add specifications for large screens or for specific use*/
+    width: 94%; /*1440px 1024*/
+    height: 90%; /*1080px  768*/
+    /*max-width: 1440px;*/
+    
+    /*Margin specifications*/
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto auto;
+    border: none;
+    overflow: hidden;
+}
+
+/*Remove table borders*/
+.contentContainer {
+    border-collapse: collapse;
+    width: 100%
+}
+
+/*Table row highlight for incidents older than 30 minutes*/
+.highlight {
+    /*Specifies color of checked-in appointment highlight*/
+    background-color: #fff1a8;	//goldenrod;
+}
+
+/*Horizontal rule - margin offsets hr from logo block*/
+hr {
+    background-color: black;
+    border-color: black;
+    color: black;
+    
+    display: block;
+    margin: 1em auto 0.5em auto;
+    border-style: inset;
+    border-width: 1px;
+}
+
+p {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+/*Left-most headers*/
+.listHeaderL {
+    font-size: 2.125vw;
+    vertical-align: top;
+    padding: 0px 3% 15px 0px;
+    width: 35%;
+    border-bottom: 2px solid black;
+}
+
+/*Left-most columns*/
+.listItemL {
+    font-size: 1.75vw;
+    vertical-align: top;
+    padding: 15px 0px 0px 0px;
+    width: 35%;
+    border-bottom: 0px;
+}
+
+/*Right-most header*/
+.listHeaderR {
+    font-size: 2.125vw;
+    text-align: left;
+    vertical-align: top;
+    padding: 0px 0px 15px 1%;
+    width: 30%;
+    border-bottom: 2px solid black;
+}
+
+/*Right-most column*/
+.listItemR {
+    font-size: 1.75vw;
+    text-align: left;
+    vertical-align: top;
+    padding: 15px 13% 0px 0px;
+    width: 30%;
+    border-bottom: 0px;
+}

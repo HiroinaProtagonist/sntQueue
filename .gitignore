@@ -1,0 +1,6 @@
+# Dependency directory
+/node_modules/*
+
+# files that should not be committed
+info.js
+
