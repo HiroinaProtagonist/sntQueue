@@ -14,7 +14,8 @@ is always showing the current state of your ServiceNow instance.
 ## Getting Started and prerequisites
 
 Download the application files into a folder. 
-Install .[Node.js and npm](https://nodejs.org/en/download/). 
+Install .[Node.js and npm][]. 
+[Node.js and npm]:https://nodejs.org/en/download/ 
 Run **npm install** to install dependencies.
 
 
@@ -54,6 +55,11 @@ will print to the console, as shown:
 ![Queue refreshing silently and logging the refresh to the console](https://github.com/HiroinaProtagonist/sntQueue/raw/master/README_images/Refresh.png)
 
 
+## Features to add
+- [] Automatically-populated test data
+- [] Support for incidents that are open, but In Progress, not New
+
+
 ## Built With
 
 * [Node.js][https://nodejs.org/en/download/] - Runtime environment
@@ -69,3 +75,4 @@ This project is licensed under the Creative Commons Attribution Share
 Alike 4.0 International license - see the [LICENSE.md](LICENSE.md) 
 file for details
 ```
+
