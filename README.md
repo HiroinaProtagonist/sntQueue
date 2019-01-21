@@ -1,12 +1,12 @@
 ```markdown
 # ServiceNow Ticket Queue
 
-sntQueue is a incident/ticket display system for ServiceNow intended for customer-facing uses where incidents remaining to be addressed need to be obvious to staff and/or customers. It displays a specified number of new incidents that were created on the current day in a customizable window, highlighting any incidents that are older than 30 minutes. If there are no qualifying incidents, it displays an appropriate message. It refreshes on a customizable basis so that it is always showing the current state of your ServiceNow instance.
+'sntQueue is a incident/ticket display system for ServiceNow intended for customer-facing uses where incidents remaining to be addressed need to be obvious to staff and/or customers. It displays a specified number of new incidents that were created on the current day in a customizable window, highlighting any incidents that are older than 30 minutes. If there are no qualifying incidents, it displays an appropriate message. It refreshes on a customizable basis so that it is always showing the current state of your ServiceNow instance.'
 
 
 ## Getting Started and prerequisites
 
-Download the application files into a folder. Install .[Node.js and npm](https://nodejs.org/en/download/) and run **npm install** to install dependencies.
+'Download the application files into a folder. Install .[Node.js and npm](https://nodejs.org/en/download/) and run **npm install** to install dependencies.'
 
 
 ### Installation and deployment
@@ -44,4 +44,3 @@ https://github.com/HiroinaProtagonist/sntQueue/raw/master/README_images/Refresh.
 
 This project is licensed under the Creative Commons Attribution Share Alike 4.0 International license - see the [LICENSE.md](LICENSE.md) file for details
 ```
-
