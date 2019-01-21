@@ -23,17 +23,20 @@ After downloading the files into your folder, create a file called info.js <br>
 Add two variables to the info.js file: AuthU and AuthP<br>
 Set them to your ServiceNow application access account username and password, respectively.
 
-In the index.html file, set the url and querystring to work with your ServiceNow instance.
 
+In the index.html file, set the url and querystring to work with your ServiceNow instance.
 Customize the display in accordance with the documenting comments in main.js and queuestyle.css.
+
 
 Once the files are customized to work with your instance of ServiceNow, run **npm start** 
 in the folder to run the program.
+
 
 Electron should start and the running program should look like this if 
 there are qualifying incidents/tickets to display:
 
 ![Queue with both highlighted and plain incidents](https://github.com/HiroinaProtagonist/sntQueue/raw/master/README_images/BothTypes.png)
+
 
 If all of the incidents that are open and in the new state are less 
 than 30 minutes old, the queue will not have any highlighting and 
@@ -41,10 +44,12 @@ will look like this:
 
 ![Queue with all incidents opened within 30 minutes](https://github.com/HiroinaProtagonist/sntQueue/raw/master/README_images/Within30.png)
 
+
 If no new incidents were opened on the day that you are running the 
 program, it should look like this:
 
 ![Empty Queue with no new tickets message](https://github.com/HiroinaProtagonist/sntQueue/raw/master/README_images/EmptyQ.png)
+
 
 The queue will refresh silently at the interval that you specify in 
 index.html. If you open Developer Tools, you should see the refresh 
