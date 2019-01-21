@@ -21,8 +21,11 @@ Run **npm install** to install dependencies.
 
 After downloading the files into your folder, create a file called info.js <br>
 Add two variables to the info.js file: AuthU and AuthP<br>
-Set them to your ServiceNow application access account username and password, respectively.
+Set them to your ServiceNow application access account username and password, respectively.<br>
 
+Authentication is currently tailored towards dedicated or limited internal servers that 
+do not have external network access and can safely hold a file containing authentication 
+information.
 
 In the index.html file, set the url and querystring to work with your ServiceNow instance.
 Customize the display in accordance with the documenting comments in main.js and queuestyle.css.
@@ -62,7 +65,7 @@ word "refreshed" will print to the console, as shown:
 ## Features to add
 - [] Automatically-populated test data
 - [] Support for incidents that are open, but In Progress, not New
-
+- [] More sophisticated authentication handling
 
 ## Built With
 
