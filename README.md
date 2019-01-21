@@ -32,21 +32,25 @@ in the folder to run the program.
 
 Electron should start and the running program should look like this if 
 there are qualifying incidents/tickets to display:
-![Queue with both highlighted and plain incidents](https://github.com/HiroinaProtagonist/sntQueue/raw/readme/README_images/BothTypes.png)
+
+![Queue with both highlighted and plain incidents](https://github.com/HiroinaProtagonist/sntQueue/raw/master/README_images/BothTypes.png)
 
 If all of the incidents that are open and in the new state are less 
 than 30 minutes old, the queue will not have any highlighting and 
 will look like this:
-![Queue with all incidents opened within 30 minutes](https://github.com/HiroinaProtagonist/sntQueue/raw/master/README_images/Within30.png "Queue with only incidents opened within 30 minutes")
+
+![Queue with all incidents opened within 30 minutes](https://github.com/HiroinaProtagonist/sntQueue/raw/master/README_images/Within30.png)
 
 If no new incidents were opened on the day that you are running the 
 program, it should look like this:
-![Empty Queue with no new tickets message](https://github.com/HiroinaProtagonist/sntQueue/raw/master/README_images/emptyQ.png)
+
+![Empty Queue with no new tickets message](https://github.com/HiroinaProtagonist/sntQueue/raw/master/README_images/EmptyQ.png)
 
 The queue will refresh silently at the interval that you specify in 
 index.html. If you open Developer Tools, you should see the refresh 
 being logged to the console. Each time the software refreshes, the 
 word "refreshed" will print to the console, as shown:
+
 ![Queue refreshing silently and logging the refresh to the console](https://github.com/HiroinaProtagonist/sntQueue/raw/master/README_images/Refresh.png)
 
 
