@@ -1,30 +1,34 @@
 # ServiceNow Ticket Queue
 
-sntQueue is a incident/ticket display system for ServiceNow intended for customer-facing uses where incidents remaining to be addressed need to be obvious to staff and/or customers. It displays a specified number of new incidents that were created on the current day in a customizable window, highlighting any incidents that are older than 30 minutes. If there are no qualifying incidents, it displays an appropriate message. It refreshes on a customizable basis so that it is always showing the current state of your ServiceNow instance.
+sntQueue is a incident/ticket display system for ServiceNow intended 
+for customer-facing uses where incidents remaining to be addressed 
+need to be obvious to staff and/or customers. It displays a specified 
+number of new incidents that were created on the current day in a 
+customizable window, highlighting any incidents that are older than 30 
+minutes. If there are no qualifying incidents, it displays an 
+appropriate message. It refreshes on a customizable basis so that it 
+is always showing the current state of your ServiceNow instance.
 
 
 ## Getting Started and prerequisites
 
-Download the application files into a folder.
-Install [Node.js and npm](https://nodejs.org/en/download/) 
+Download the application files into a folder.<br>
+Install [Node.js and npm](https://nodejs.org/en/download/)<br>
 Run **npm install** to install dependencies.
 
 
 ### Installation and deployment
 
-After downloading the files into your folder, create a file called info.js 
-Add two variables to the info.js file: AuthU and AuthP
-Set them to your ServiceNow application access account username and 
-password, respectively.
+After downloading the files into your folder, create a file called info.js <br>
+Add two variables to the info.js file: AuthU and AuthP<br>
+Set them to your ServiceNow application access account username and password, respectively.
 
-In the index.html file, set the url and querystring to work with your 
-ServiceNow instance.
+In the index.html file, set the url and querystring to work with your ServiceNow instance.
 
-Customize the display in accordance with the documenting comments in 
-main.js and queuestyle.css.
+Customize the display in accordance with the documenting comments in main.js and queuestyle.css.
 
-Once the files are customized to work with your instance of ServiceNow,
- run **npm start** in the folder to run the program.
+Once the files are customized to work with your instance of ServiceNow, run **npm start** 
+in the folder to run the program.
 
 Electron should start and the running program should look like this if 
 there are qualifying incidents/tickets to display:
@@ -41,8 +45,8 @@ program, it should look like this:
 
 The queue will refresh silently at the interval that you specify in 
 index.html. If you open Developer Tools, you should see the refresh 
-in the console. Each time the software refreshes, the word "refreshed" 
-will print to the console, as shown:
+being logged to the console. Each time the software refreshes, the 
+word "refreshed" will print to the console, as shown:
 ![Queue refreshing silently and logging the refresh to the console](https://github.com/HiroinaProtagonist/sntQueue/raw/master/README_images/Refresh.png)
 
 
