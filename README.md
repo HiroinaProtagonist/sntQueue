@@ -10,14 +10,14 @@ appropriate message. It refreshes on a customizable basis so that it
 is always showing the current state of your ServiceNow instance.
 
 
-## Getting Started and prerequisites
+## Getting Started and Prerequisites
 
 Download the application files into a folder.<br>
 Install [Node.js and npm](https://nodejs.org/en/download/)<br>
 Run **npm install** to install dependencies.
 
 
-### Installation and deployment
+### Installation and Deployment
 
 After downloading the files into your folder, create a file called info.js <br>
 Add two variables to the info.js file: AuthU and AuthP<br>
@@ -62,12 +62,12 @@ word "refreshed" will print to the console, as shown:
 ![Queue refreshing silently and logging the refresh to the console](https://github.com/HiroinaProtagonist/sntQueue/raw/master/README_images/Refresh.png)
 
 
-## Features to add
+## Features to Add
 - [] Automatically-populated test data
 - [] Support for incidents that are open, but In Progress, not New
 - [] More sophisticated authentication handling
 
-## Built With
+## Underlying Tech
 
 * [Node.js](https://nodejs.org/en/download/) - Runtime environment
 * [Electron](https://electronjs.org/) - Web framework
