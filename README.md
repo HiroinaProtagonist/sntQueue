@@ -1,6 +1,6 @@
 # ServiceNow Service Ticket Queue
 
-sntQueue is a incident/ticket display system for ServiceNow intended 
+sntQueue is an incident/ticket display system for ServiceNow intended 
 for customer-facing uses where incidents remaining to be addressed 
 need to be obvious to staff and/or customers. It displays a specified 
 number of new incidents that were created on the current day in a 
