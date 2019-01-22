@@ -7,7 +7,7 @@ number of new incidents that were created on the current day in a
 customizable window, highlighting any incidents that are older than 30 
 minutes. If there are no qualifying incidents, it displays an 
 appropriate message. It refreshes on a customizable basis so that it 
-is always showing the current state of your ServiceNow instance.
+is always showing the current state of the ServiceNow instance.
 
 
 ## Getting Started and Prerequisites
